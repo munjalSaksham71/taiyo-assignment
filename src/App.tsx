@@ -1,12 +1,19 @@
-import './App.css'
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import MainLayout from './layouts/Mainlayout';
+import ContactPage from './pages/ContactPage';
 
-function App() {
 
+const App: React.FC = () => {
   return (
-    <>
-      <h1>Hello World</h1>
-    </>
-  )
-}
+    <Router>
+      <MainLayout>
+        <Routes>
+          <Route path="/" element={<ContactPage />} />
+        </Routes>
+      </MainLayout>
+    </Router>
+  );
+};
 
-export default App
+export default App;
