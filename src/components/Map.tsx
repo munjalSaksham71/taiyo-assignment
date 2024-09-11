@@ -2,21 +2,21 @@ import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { useCountryData } from '../api';
 import L from 'leaflet';
-import icon from 'leaflet/dist/images/marker-icon.png';
-import iconShadow from 'leaflet/dist/images/marker-shadow.png';
+//icons in public folder
+import icon from '/marker-icon.png';
+import iconShadow from '/marker-shadow.png';
 import 'leaflet/dist/leaflet.css';
 
-const DefaultIcon = L.icon({
-  iconUrl: icon,
-  shadowUrl: iconShadow,
-});
-
-L.Marker.prototype.options.icon = DefaultIcon;
 
 const MapComponent: React.FC = () => {
   const { data, isLoading } = useCountryData();
 
   if (isLoading) return <div>Loading...</div>;
+
+  const default_icon = L.icon({
+    iconUrl: icon,
+    shadowUrl: iconShadow
+  });
 
   return (
     <MapContainer center={[20, 0]} zoom={2} style={{ height: '600px', width: '100%' }}>
@@ -28,7 +28,7 @@ const MapComponent: React.FC = () => {
         <Marker
           key={country.country}
           position={[country.countryInfo.lat, country.countryInfo.long]}
-          icon={new L.Icon.Default()}
+          icon={default_icon}
         >
           <Popup>
             <strong>{country.country}</strong><br />
