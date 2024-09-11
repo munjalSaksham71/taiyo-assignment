@@ -1,50 +1,54 @@
-# React + TypeScript + Vite
+# Contact Management App with Charts and Maps
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Description
 
-Currently, two official plugins are available:
+This project is a contact management application built with React, TypeScript, TailwindCSS, and Redux for handling contacts, and React Query for fetching and managing COVID-19 data. The app includes a dashboard with a line graph and a React Leaflet map that visualizes global and country-specific COVID-19 data.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Features
 
-## Expanding the ESLint configuration
+- **Contact Management**:
+  - Form for adding new contacts
+  - List of all added contacts
+  - View, edit, and delete contacts
+  - Redux for state management
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+- **Dashboard**:
+  - Line graph showing COVID-19 case fluctuations over time
+  - React Leaflet map with markers showing country-specific COVID-19 data (active cases, recovered cases, deaths)
 
-- Configure the top-level `parserOptions` property like this:
+## Technologies Used
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- **Frontend**: React, TypeScript, TailwindCSS
+- **State Management**: Redux
+- **Data Fetching**: React Query
+- **Charts**: Recharts
+- **Maps**: React Leaflet
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+## API Endpoints Used
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+- **Worldwide Data of Cases**:
+  - **URL**: [https://disease.sh/v3/covid-19/all](https://disease.sh/v3/covid-19/all)
+  - **Description**: Provides the total number of cases, deaths, and recovered cases worldwide.
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+- **Country Specific Data of Cases**:
+  - **URL**: [https://disease.sh/v3/covid-19/countries](https://disease.sh/v3/covid-19/countries)
+  - **Description**: Provides COVID-19 data for each country including active cases, recovered cases, and deaths.
+
+- **Graph Data for Cases with Date**:
+  - **URL**: [https://disease.sh/v3/covid-19/historical/all?lastdays=all](https://disease.sh/v3/covid-19/historical/all?lastdays=all)
+  - **Description**: Provides historical data of cases over time for generating the line graph.
+
+## Setup and Installation
+
+1. **Clone the Repository**:
+   ```bash
+   git clone https://github.com/munjalSaksham71/taiyo-assignment.git
+   cd taiyo-assignment
+   npm install
+   npm start
+   ```
+The application will be available at http://localhost:5173.
+
+
+- **Running the App**:
+  After following the setup instructions, the app should start locally, and you can interact with both the contact management features and the COVID-19 dashboard.
