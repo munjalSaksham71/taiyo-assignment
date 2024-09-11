@@ -1,7 +1,17 @@
 import React from 'react';
 import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
 import { useCountryData } from '../api';
+import L from 'leaflet';
+import icon from 'leaflet/dist/images/marker-icon.png';
+import iconShadow from 'leaflet/dist/images/marker-shadow.png';
 import 'leaflet/dist/leaflet.css';
+
+const DefaultIcon = L.icon({
+  iconUrl: icon,
+  shadowUrl: iconShadow,
+});
+
+L.Marker.prototype.options.icon = DefaultIcon;
 
 const MapComponent: React.FC = () => {
   const { data, isLoading } = useCountryData();
@@ -18,6 +28,7 @@ const MapComponent: React.FC = () => {
         <Marker
           key={country.country}
           position={[country.countryInfo.lat, country.countryInfo.long]}
+          icon={new L.Icon.Default()}
         >
           <Popup>
             <strong>{country.country}</strong><br />
