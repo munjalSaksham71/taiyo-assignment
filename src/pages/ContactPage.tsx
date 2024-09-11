@@ -6,15 +6,33 @@ import ContactCard from "../components/ContactCard";
 import Modal from "../components/Modal";
 import { v4 as uuidv4 } from "uuid";
 
+const form_initial_state = {
+  first_name: "",
+  last_name: "",
+  is_active: true, //Default true
+};
+
+
 const ContactPage: React.FC = () => {
   const contacts = useSelector((state: RootState) => state.contacts.contacts);
   const dispatch = useDispatch();
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedContact, setSelectedContact] = useState<any>(null);
   const [isEdit, setIsEdit] = useState<boolean>(false)
-  const [form, setForm] = useState({ first_name: "", last_name: "", is_active: true });
+  const [form, setForm] = useState(form_initial_state);
+  const [errors, setErrors] = useState({ first_name: "", last_name: "" });
 
   const handleFormSubmit = () => {
+    // Validations
+    const newErrors = {
+      first_name: form.first_name ? "" : "First Name is required.",
+      last_name: form.last_name ? "" : "Last Name is required."
+    };
+    setErrors(newErrors);
+    // If any error throws error and not let it save
+    if (!form.first_name || !form.last_name) return;
+
+
     if (selectedContact) {
       dispatch(editContact({ ...selectedContact, ...form }));
     } else {
@@ -36,6 +54,14 @@ const ContactPage: React.FC = () => {
     setIsModalOpen(true);
     setIsEdit(false)
   };
+
+  const onClose = () => {
+    setIsModalOpen(false);
+    setSelectedContact(null);
+    setForm(form_initial_state);
+    setIsEdit(false);
+    setErrors({ first_name: "", last_name: "" });
+  }
 
   return (
     <div className="p-6 bg-white min-h-screen">
@@ -68,7 +94,7 @@ const ContactPage: React.FC = () => {
           </div>
         )}
       </div>
-      <Modal isOpen={isModalOpen} onClose={() => {setIsModalOpen(false); setSelectedContact(null); setForm({ first_name: "", last_name: "", is_active: true }) }}>
+      <Modal isOpen={isModalOpen} onClose={onClose}>
         {(selectedContact && !isEdit) ? (
           <div className="space-y-4">
           <h2 className="text-xl text-gray-800 mb-4">View Contact</h2>
@@ -97,16 +123,18 @@ const ContactPage: React.FC = () => {
             <h2 className="text-xl text-gray-800 mb-4">{selectedContact ? "Edit" : "Add"} Contact</h2>
             <input
               className="border p-2 mb-2 w-full bg-gray-100 text-gray-800"
-              placeholder="First Name"
+              placeholder="First name"
               value={form.first_name}
               onChange={e => setForm({ ...form, first_name: e.target.value })}
             />
+            {errors.first_name && <p className="text-red-500 text-sm mb-2">{errors.first_name}</p>}
             <input
               className="border p-2 mb-2 w-full bg-gray-100 text-gray-800"
-              placeholder="Email"
+              placeholder="Last name"
               value={form.last_name}
               onChange={e => setForm({ ...form, last_name: e.target.value })}
             />
+            {errors.last_name && <p className="text-red-500 text-sm mb-2">{errors.last_name}</p>}
              <div className="flex items-center mb-4">
               <input
                 id="active-checkbox"

@@ -18,6 +18,7 @@ const ContactCard: React.FC<ContactCardProps> = ({ contact, onView, onEdit }) =>
 
   return (
     <div className="p-4 bg-white shadow rounded-lg flex justify-between items-center">
+       {/* Contact Info */ }
       <div>
         <h2 className="text-lg font-semibold">{contact.first_name} {contact.last_name}</h2>
         <p className="mt-2">
@@ -32,6 +33,7 @@ const ContactCard: React.FC<ContactCardProps> = ({ contact, onView, onEdit }) =>
         </p>
         
       </div>
+      {/* Actions */ }
       <div className="space-x-2">
         <button
           className="bg-blue-500 text-white px-4 py-2 rounded"

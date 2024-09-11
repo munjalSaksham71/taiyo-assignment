@@ -9,9 +9,12 @@ interface Props {
 
 const MainLayout: React.FC<Props> = ({ children }) => {
   return (
-    <div className="flex">
+    <div className="flex h-screen">
+      {/* Sidebar */}
       <Sidebar />
-      <div className="w-full p-4 bg-gray-100 min-h-screen">
+      
+      {/* Main Content Area */}
+      <div className="flex-1 p-4 bg-gray-100 overflow-y-auto">
         {children}
       </div>
     </div>
